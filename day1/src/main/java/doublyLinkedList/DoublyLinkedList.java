@@ -1,15 +1,14 @@
 package doublyLinkedList;
 
 import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 public class DoublyLinkedList {
 
-    Node head;
-    Node tail;
+    Node head = new Node();
+    Node tail = new Node();
 
     public DoublyLinkedList(){
-        Node head = new Node();
-        Node tail = new Node();
         head.next = tail;
         tail.prev = head;
     }
@@ -19,10 +18,39 @@ public class DoublyLinkedList {
         Node next = prev.next;
         Node thiz = new Node(prev, value, next);
 
-        thiz.prev = prev;
-        thiz.next = next;
         prev.next = thiz;
         next.prev = thiz;
+    }
+
+    public void addLast(int value){
+        Node prev = tail.prev;
+        Node thiz = new Node(prev, value, tail);
+        prev.next = thiz;
+        tail.prev = thiz;
+    }
+
+    public void addFirst(int value){
+        add(0,value);
+    }
+
+    public int delete(int index){
+        Node thiz = find(index);
+        thiz.prev.next = thiz.next;
+        thiz.next.prev = thiz.prev;
+        return thiz.value;
+    }
+
+    public void update(int index, int value){
+        Node thiz = find(index);
+        thiz.value = value;
+    }
+
+    public void ForEach(Consumer<Integer> consumer){
+        Node thiz = head.next;
+        while (thiz != tail){
+            consumer.accept(thiz.value);
+            thiz = thiz.next;
+        }
     }
 
     private Node find(int index){
