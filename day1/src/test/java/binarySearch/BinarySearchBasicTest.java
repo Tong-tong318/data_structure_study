@@ -3,8 +3,7 @@ package binarySearch;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static binarySearch.BinarySearchBasic.binarySearch;
-import static binarySearch.BinarySearchBasic.binarySearchLeft;
+import static binarySearch.BinarySearchBasic.*;
 
 
 public class BinarySearchBasicTest {
@@ -29,5 +28,12 @@ public class BinarySearchBasicTest {
         Assert.assertEquals(34, binarySearchLeft(arr, 7));
     }
 
-
+    @Test
+    public void binarySearch2Test() {
+        int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        Assert.assertEquals(5, binarySearch2(arr, 6));
+        Assert.assertEquals(-1, binarySearch2(arr, 11));
+        Assert.assertEquals(0, binarySearch2(arr, 1));
+        Assert.assertEquals(8, binarySearch2(arr, 9));
+    }
 }
