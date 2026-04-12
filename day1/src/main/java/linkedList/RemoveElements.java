@@ -24,10 +24,10 @@ public class RemoveElements {
         );
     }
 
-    public static LinkedList removeElements(LinkedList originList, int target){
+    public static LinkedList removeElements(LinkedList originList, Object target){
         LinkedList newList = new LinkedList();
         for (int i = 0; i < originList.getLength(); i++) {
-            int value = originList.get(i);
+            Object value = originList.get(i);
             if (value != target) {
                 newList.addLast(value);
             }

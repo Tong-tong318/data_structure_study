@@ -3,23 +3,23 @@ package queue;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TestQueue {
+public class TestArrayQueue {
     @Test
     public void Test1(){
-        Queue queue = new Queue();
+        ArrayQueue queue = new ArrayQueue(3);
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
         queue.offer(4);
 
-        queue.foreach(
+        queue.forEach(
                 o -> System.out.println(o)
         );
     }
 
     @Test
     public void Test2(){
-        Queue queue = new Queue();
+        ArrayQueue queue = new ArrayQueue();
         queue.offer(1);
         queue.offer(2);
         queue.offer(3);
@@ -31,3 +31,4 @@ public class TestQueue {
         Assert.assertEquals(3, queue.peek());
     }
 }
+

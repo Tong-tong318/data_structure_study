@@ -2,16 +2,20 @@ package queue;
 
 import java.util.function.Consumer;
 
-public class Queue implements QueueInterface{
+/**
+ * 基础队列
+ * 基于 单向链表带哨兵 实现
+ */
+public class LinkedQueue implements QueueInterface{
     Node head = new Node(null, null);
     Node tail = head;
     int size;
     int capacity;
-    public Queue(){
+    public LinkedQueue(){
         tail.next = head;
         capacity = 1024;
     }
-    public Queue(int capacity){
+    public LinkedQueue(int capacity){
         tail.next = head;
         this.capacity = capacity;
     }

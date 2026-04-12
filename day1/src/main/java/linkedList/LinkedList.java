@@ -7,13 +7,13 @@ public class LinkedList {
 
     private Node head = new Node(888,null);
 
-    public void add(int index, int value){
+    public void add(Object value, int index){
         Node prev = find(index - 1);
         Node p = new Node(value,prev.next);
         prev.next = p;
     }
 
-    public void addLast(int value){
+    public void addLast(Object value){
         Node p = head;
         while (p.next != null){
             p = p.next;
@@ -21,27 +21,28 @@ public class LinkedList {
         p.next = new Node(value,null);
     }
 
-    public int delete(int index){
+    public Object delete(int index){
         Node prev = find(index - 1);
         if(prev.next == null){
             throw new NoSuchElementException();
         }
-        int value = prev.next.value;
+        Object value = prev.next.value;
         prev.next = prev.next.next;
         return value;
     }
 
-    public void update(int index, int value){
+    public void update(int index, Object value){
         Node p = find(index);
         p.value = value;
     }
 
-    public int get(int index){
+    public Object get(int index){
+        if (isEmpty()) return null;
         Node p = find(index);
         return p.value;
     }
 
-    public void forEach(Consumer<Integer> consumer){
+    public void forEach(Consumer<Object> consumer){
         Node p = head.next;
         while (p != null){
             consumer.accept(p.value);
@@ -84,12 +85,12 @@ public class LinkedList {
 
 
     private static class Node {
-        private int value;
+        private Object value;
         private Node next;
 
         private Node(){
         }
-        private Node(int value, Node next){
+        private Node(Object value, Node next){
             this.value = value;
             this.next = next;
         }

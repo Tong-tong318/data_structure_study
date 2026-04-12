@@ -18,8 +18,8 @@ public class ReversalLinkedList {
     public static LinkedList reversal(LinkedList oraginList) {
         LinkedList newList = new LinkedList();
         while (!oraginList.isEmpty()) {
-            int val = oraginList.delete(0);
-            newList.add(0, val);
+            Object val = oraginList.delete(0);
+            newList.add(val, 0);
         }
         return newList;
     }
