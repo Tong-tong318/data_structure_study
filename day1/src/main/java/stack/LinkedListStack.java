@@ -32,6 +32,7 @@ public class LinkedListStack implements StackInterface{
 
     @Override
     public Object peek() {
+        if (list.get(0) == null) return null;
         return list.get(0);
     }
 

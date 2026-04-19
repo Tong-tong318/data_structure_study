@@ -10,7 +10,7 @@ public class TestValidBrackets {
     @Test
     public void Test1(){
         String str1 = "[(]{)}";//f
-        String str2 = "[";//f
+        String str2 = "[(])";//f
         String str3 = "([{{}}[]])";//t
         String str4 = "(tong(tong[N]B))";//t
 
