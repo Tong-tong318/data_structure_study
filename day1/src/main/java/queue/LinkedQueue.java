@@ -6,9 +6,9 @@ import java.util.function.Consumer;
  * 基础队列
  * 基于 单向链表带哨兵 实现
  */
-public class LinkedQueue implements QueueInterface{
-    Node head = new Node(null, null);
-    Node tail = head;
+public class LinkedQueue<E> implements QueueInterface<E>{
+    Node<E> head = new Node<>(null, null);
+    Node<E> tail = head;
     int size;
     int capacity;
     public LinkedQueue(){
@@ -21,27 +21,26 @@ public class LinkedQueue implements QueueInterface{
     }
 
     @Override
-    public Boolean offer(Object o) {
+    public Boolean offer(E o) {
         if(isFull()) return false;
 
-        Node newNode = new Node(o, head);
-        tail.next = newNode;
+        tail.next = new Node<>(o, head);
         tail = tail.next;
         size++;
         return true;
     }
 
     @Override
-    public Object peek() {
+    public E peek() {
         return head.next.value;
     }
 
     @Override
-    public Object pull() {
+    public E pull() {
         if (isEmpty()) {
             return null;
         }
-        Node geted = head.next;
+        Node<E> geted = head.next;
         head.next = geted.next;
         if (geted == tail) {
             tail = head;
@@ -61,20 +60,20 @@ public class LinkedQueue implements QueueInterface{
     }
 
     public void foreach(Consumer<Object> consumer){
-        Node p1 = head.next;
+        Node<E> p1 = head.next;
         while (p1.value != null){
             consumer.accept(p1.value);
             p1 = p1.next;
         }
     }
 
-    private static class Node {
-        private Object value;
-        private Node next;
+    private static class Node<E> {
+        private E value;
+        private Node<E> next;
 
         private Node(){
         }
-        private Node(Object value, Node next){
+        private Node(E value, Node<E> next){
             this.value = value;
             this.next = next;
         }

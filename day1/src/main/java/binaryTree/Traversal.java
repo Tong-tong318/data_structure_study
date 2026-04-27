@@ -1,82 +1,59 @@
 package binaryTree;
 
-import queue.LinkedQueue;
-
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Stack;
 
-public class Traversal {
-    ArrayList<Object> arrayList = new ArrayList<>();
-
-    /**
-     * 层序遍历
-     */
-    public ArrayList<Object> LayerTraversal(TreeNode head){
-
-        LinkedQueue queue = new LinkedQueue();
-        queue.offer(head);
-        int count1 = 1;
-        int count2 = 0;
-
-        while (!queue.isEmpty()){
-            List<Integer> list = new ArrayList<Integer>();
-            for (int i = 0; i < count1; i++) {
-                TreeNode node = (TreeNode) queue.pull();
-                if (node.left != null){
-                    queue.offer(node.left);
-                    count2++;
-                }
-                if (node.right != null){
-                    queue.offer(node.right);
-                    count2++;
-                }
-
-                list.add((Integer) node.value);
+public class Traversal<E> {
+    public ArrayList<E> preTraversal(TreeNode<E> node){
+        ArrayList<E> arrayList = new ArrayList<>();
+        Stack<TreeNode<E>> stack = new Stack<>();
+        while (node != null || !stack.isEmpty()){
+            if (node != null) {
+                arrayList.addLast((E) node.value);
+                stack.push(node);
+                node = node.left;
+            }else {
+                node = stack.pop().right;
             }
-            arrayList.add(list);
-            count1 = count2;
-            count2 = 0;
         }
-
         return arrayList;
     }
 
-    /**
-     * 前序遍历
-     */
-    public ArrayList<Object> preTralversal(TreeNode node){
-        if (node != null) {
-            arrayList.add(node.value);
-            preTralversal(node.left);
-            preTralversal(node.right);
-            return arrayList;
+    public ArrayList<E> midTraversal(TreeNode<E> node){
+        ArrayList<E> arrayList = new ArrayList<>();
+        Stack<TreeNode<E>> stack = new Stack<>();
+        while (node != null || !stack.isEmpty()){
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            }else {
+                node = stack.pop();
+                arrayList.addLast(node.value);
+                node = node.right;
+            }
         }
-        return null;
+        return arrayList;
     }
 
-    /**
-     * 中序遍历
-     */
-    public ArrayList<Object> midTralversal(TreeNode node){
-        if (node != null) {
-            midTralversal(node.left);
-            arrayList.add(node.value);
-            midTralversal(node.right);
-            return arrayList;
+    public ArrayList<E> endTraversal(TreeNode<E> node){
+        ArrayList<E> arrayList = new ArrayList<>();
+        Stack<TreeNode<E>> stack = new Stack<>();
+        TreeNode<E> lastVisited = null;
+        while (node != null || !stack.isEmpty()){
+            if (node != null) {
+                stack.push(node);
+                node = node.left;
+            }else {
+                TreeNode<E> peekNode = stack.peek();
+                if (peekNode.right != null && lastVisited != peekNode.right) {
+                    node = peekNode.right;
+                } else {
+                    stack.pop();
+                    arrayList.add(peekNode.value);
+                    lastVisited = peekNode;
+                }
+            }
         }
-        return null;
-    }
-
-    /**
-     * 后序遍历
-     */
-    public ArrayList<Object> endTralversal(TreeNode node){
-        if (node != null) {
-            endTralversal(node.left);
-            endTralversal(node.right);
-            arrayList.add(node.value);
-            return arrayList;
-        }
-        return null;
+        return arrayList;
     }
 }
